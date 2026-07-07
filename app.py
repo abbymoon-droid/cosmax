@@ -36,6 +36,83 @@ NAME_POOL = [
 ]
 
 # ──────────────────────────────────────────────
+# 상단 헤더 일러스트 (파스텔 플랫 스타일 화장품 용기)
+# ──────────────────────────────────────────────
+HEADER_CSS = """
+<style>
+.prsv-header {
+    background: linear-gradient(135deg, #fef6ea 0%, #eaf6f0 55%, #eaf1fb 100%);
+    border-radius: 20px;
+    padding: 20px 28px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+}
+.prsv-badge {
+    display: inline-block;
+    background: #ff6f91;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-bottom: 6px;
+}
+.prsv-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: #2f3b3a;
+}
+.prsv-caption {
+    margin: 2px 0 0 0;
+    font-size: 13px;
+    color: #6b7573;
+}
+.prsv-illustration { flex-shrink: 0; }
+.prsv-illustration svg { display: block; height: 64px; width: auto; }
+@media (max-width: 640px) {
+    .prsv-illustration { display: none; }
+}
+</style>
+"""
+
+HEADER_ILLUSTRATION_SVG = """
+<svg viewBox="0 0 300 90" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect x="10" y="30" width="34" height="46" rx="10" fill="#f4b860" stroke="#c98a3b" stroke-width="2"/>
+    <rect x="20" y="14" width="14" height="18" rx="4" fill="#4a3728"/>
+    <rect x="25" y="6" width="4" height="10" fill="#4a3728"/>
+    <rect x="16" y="48" width="22" height="14" rx="3" fill="#fff8ec" opacity="0.85"/>
+  </g>
+  <g>
+    <rect x="66" y="24" width="46" height="18" rx="7" fill="#3a3a3a"/>
+    <rect x="62" y="40" width="54" height="38" rx="14" fill="#fbeee0" stroke="#dcc7a5" stroke-width="2"/>
+    <ellipse cx="89" cy="59" rx="14" ry="8" fill="#f0dcbd"/>
+  </g>
+  <g>
+    <rect x="150" y="10" width="26" height="12" rx="5" fill="#2f5c4d"/>
+    <rect x="168" y="14" width="12" height="6" rx="2" fill="#2f5c4d"/>
+    <rect x="158" y="20" width="10" height="12" fill="#4f8a76"/>
+    <rect x="146" y="30" width="34" height="46" rx="9" fill="#8fcab2" stroke="#4f8a76" stroke-width="2"/>
+  </g>
+  <g>
+    <rect x="222" y="12" width="36" height="52" rx="16" fill="#9bd3ab" stroke="#5a9a6c" stroke-width="2"/>
+    <rect x="232" y="62" width="16" height="12" fill="#4a7a56"/>
+    <ellipse cx="234" cy="26" rx="6" ry="3" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <circle cx="292" cy="20" r="4" fill="#ff9fb4"/>
+  <circle cx="8" cy="80" r="3" fill="#8fd3e8"/>
+  <circle cx="200" cy="82" r="3" fill="#ffd76a"/>
+</svg>
+"""
+
+# ──────────────────────────────────────────────
 # 추천 로직 (index.html의 getRecommendations를 그대로 이식)
 # ──────────────────────────────────────────────
 def get_recommendations(form_type, ph_range, nonionic, bioburden, packaging):
@@ -127,10 +204,20 @@ if "history" not in st.session_state:
 # ──────────────────────────────────────────────
 # 상단
 # ──────────────────────────────────────────────
-top_col1, top_col2 = st.columns([3, 2])
-with top_col1:
-    st.markdown("### 🧪 PRSV")
-    st.caption("코스맥스 미생물연구팀 · 사내 공유용")
+st.markdown(HEADER_CSS, unsafe_allow_html=True)
+st.markdown(
+    f"""
+    <div class="prsv-header">
+        <div class="prsv-header-text">
+            <div class="prsv-badge">BETA</div>
+            <h1 class="prsv-title">🧪 PRSV</h1>
+            <p class="prsv-caption">코스맥스 미생물연구팀 · 사내 공유용</p>
+        </div>
+        <div class="prsv-illustration">{HEADER_ILLUSTRATION_SVG}</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 tab_main, tab_history = st.tabs(["🔬 추천받기", "📋 사용 기록"])
 
